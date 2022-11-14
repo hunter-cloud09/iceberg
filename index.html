@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="None">
+        
+        
+        <link rel="shortcut icon" href="img/favicon.ico">
+        <title>PyIceberg</title>
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/font-awesome.min.css" rel="stylesheet">
+        <link href="css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css">
+
+        <script src="js/jquery-1.10.2.min.js" defer></script>
+        <script src="js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body class="homepage">
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href=".">PyIceberg</a>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="1"><a href="#pyiceberg" class="nav-link">PyIceberg</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#installing" class="nav-link">Installing</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="1"><a href="#python-cli-quickstart" class="nav-link">Python CLI Quickstart</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="1"><a href="#configuration" class="nav-link">Configuration</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#fileio-configuration" class="nav-link">FileIO configuration</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="1"><a href="#cli-quickstart" class="nav-link">CLI Quickstart</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="1"><a href="#python-api" class="nav-link">Python API</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="1"><a href="#feature-support" class="nav-link">Feature Support</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#metadata" class="nav-link">Metadata</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#types" class="nav-link">Types</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<!--
+ - Licensed to the Apache Software Foundation (ASF) under one or more
+ - contributor license agreements.  See the NOTICE file distributed with
+ - this work for additional information regarding copyright ownership.
+ - The ASF licenses this file to You under the Apache License, Version 2.0
+ - (the "License"); you may not use this file except in compliance with
+ - the License.  You may obtain a copy of the License at
+ -
+ -   http://www.apache.org/licenses/LICENSE-2.0
+ -
+ - Unless required by applicable law or agreed to in writing, software
+ - distributed under the License is distributed on an "AS IS" BASIS,
+ - WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ - See the License for the specific language governing permissions and
+ - limitations under the License.
+ -->
+
+<h1 id="pyiceberg">PyIceberg</h1>
+<p>Much of the python api conforms to the Java API. You can get more info about the java api <a href="https://iceberg.apache.org/docs/latest/java-api-quickstart/">here</a>.</p>
+<h2 id="installing">Installing</h2>
+<p>You can install the latest release version from pypi:</p>
+<pre><code class="language-sh">pip3 install &quot;pyiceberg[s3fs,hive]&quot;
+</code></pre>
+<p>Or install the latest development version locally:</p>
+<pre><code class="language-sh">git clone https://github.com/apache/iceberg.git
+cd iceberg/python
+pip3 install -e &quot;.[s3fs,hive]&quot;
+</code></pre>
+<p>You can mix and match optional dependencies:</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Description:</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>hive</td>
+<td>Support for the Hive metastore</td>
+</tr>
+<tr>
+<td>pyarrow</td>
+<td>PyArrow as a FileIO implementation to interact with the object store</td>
+</tr>
+<tr>
+<td>s3fs</td>
+<td>S3FS as a FileIO implementation to interact with the object store</td>
+</tr>
+<tr>
+<td>snappy</td>
+<td>Support for snappy Avro compression</td>
+</tr>
+</tbody>
+</table>
+<h1 id="python-cli-quickstart">Python CLI Quickstart</h1>
+<p>Pyiceberg comes with a CLI that's available after installing the <code>pyiceberg</code> package.</p>
+<pre><code class="language-sh">➜  pyiceberg --help
+Usage: pyiceberg [OPTIONS] COMMAND [ARGS]...
+
+Options:
+--catalog TEXT
+--verbose BOOLEAN
+--output [text|json]
+--uri TEXT
+--credential TEXT
+--help                Show this message and exit.
+
+Commands:
+describe    Describes a namespace xor table
+drop        Operations to drop a namespace or table
+list        Lists tables or namespaces
+location    Returns the location of the table
+properties  Properties on tables/namespaces
+rename      Renames a table
+schema      Gets the schema of the table
+spec        Returns the partition spec of the table
+uuid        Returns the UUID of the table
+</code></pre>
+<h1 id="configuration">Configuration</h1>
+<p>There are three ways of setting the configuration.</p>
+<p>For the CLI you can pass it in using <code>--uri</code> and <code>--credential</code> and it will automatically detect the type based on the scheme (<code>http(s)</code> for rest, <code>thrift</code> for Hive).</p>
+<p>Secondly, YAML based configuration is supported <code>cat ~/.pyiceberg.yaml</code>:</p>
+<pre><code class="language-yaml">catalog:
+  default:
+    uri: thrift://localhost:9083
+    s3.endpoint: http://localhost:9000
+    s3.access-key-id: admin
+    s3.secret-access-key: password
+
+  rest:
+    uri: http://rest-catalog/ws/
+    credential: t-1234:secret
+
+  mtls-secured-catalog:
+    uri: https://rest-catalog/ws/
+    ssl:
+      client:
+        cert: /absolute/path/to/client.crt
+        key: /absolute/path/to/client.key
+      cabundle: /absolute/path/to/cabundle.pem
+</code></pre>
+<p>Lastly, you can also set it using environment variables:</p>
+<pre><code class="language-sh">export PYICEBERG_CATALOG__DEFAULT__URI=thrift://localhost:9083
+
+export PYICEBERG_CATALOG__REST__URI=http://rest-catalog/ws/
+export PYICEBERG_CATALOG__REST__CREDENTIAL=t-1234:secret
+</code></pre>
+<p>Where the structure is equivalent to the YAML. The levels are separated using a double underscore (<code>__</code>).</p>
+<h2 id="fileio-configuration">FileIO configuration</h2>
+<p>For the FileIO there are several configuration options available:</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Example</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>s3.endpoint</td>
+<td>https://10.0.19.25/</td>
+<td>Configure an alternative endpoint of the S3 service for the FileIO to access. This could be used to use S3FileIO with any s3-compatible object storage service that has a different endpoint, or access a private S3 endpoint in a virtual private cloud.</td>
+</tr>
+<tr>
+<td>s3.access-key-id</td>
+<td>admin</td>
+<td>Configure the static secret access key used to access the FileIO.</td>
+</tr>
+<tr>
+<td>s3.secret-access-key</td>
+<td>password</td>
+<td>Configure the static session token used to access the FileIO.</td>
+</tr>
+<tr>
+<td>s3.signer</td>
+<td>bearer</td>
+<td>Configure the signature version of the FileIO.</td>
+</tr>
+</tbody>
+</table>
+<h1 id="cli-quickstart">CLI Quickstart</h1>
+<p>This example assumes that you have a default catalog set. If you want to load another catalog, for example, the rest example above. Then you need to set <code>--catalog rest</code>.</p>
+<pre><code class="language-sh">➜  pyiceberg list
+default
+nyc
+</code></pre>
+<pre><code class="language-sh">➜  pyiceberg list nyc
+nyc.taxis
+</code></pre>
+<pre><code class="language-sh">➜  pyiceberg describe nyc.taxis
+Table format version  1
+Metadata location     file:/.../nyc.db/taxis/metadata/00000-aa3a3eac-ea08-4255-b890-383a64a94e42.metadata.json
+Table UUID            6cdfda33-bfa3-48a7-a09e-7abb462e3460
+Last Updated          1661783158061
+Partition spec        []
+Sort order            []
+Current schema        Schema, id=0
+├── 1: VendorID: optional long
+├── 2: tpep_pickup_datetime: optional timestamptz
+├── 3: tpep_dropoff_datetime: optional timestamptz
+├── 4: passenger_count: optional double
+├── 5: trip_distance: optional double
+├── 6: RatecodeID: optional double
+├── 7: store_and_fwd_flag: optional string
+├── 8: PULocationID: optional long
+├── 9: DOLocationID: optional long
+├── 10: payment_type: optional long
+├── 11: fare_amount: optional double
+├── 12: extra: optional double
+├── 13: mta_tax: optional double
+├── 14: tip_amount: optional double
+├── 15: tolls_amount: optional double
+├── 16: improvement_surcharge: optional double
+├── 17: total_amount: optional double
+├── 18: congestion_surcharge: optional double
+└── 19: airport_fee: optional double
+Current snapshot      Operation.APPEND: id=5937117119577207079, schema_id=0
+Snapshots             Snapshots
+└── Snapshot 5937117119577207079, schema 0: file:/.../nyc.db/taxis/metadata/snap-5937117119577207079-1-94656c4f-4c66-4600-a4ca-f30377300527.avro
+Properties            owner                 root
+write.format.default  parquet
+</code></pre>
+<p>Or output in JSON for automation:</p>
+<pre><code class="language-sh">➜  pyiceberg --output json describe nyc.taxis | jq
+{
+  &quot;identifier&quot;: [
+    &quot;nyc&quot;,
+    &quot;taxis&quot;
+  ],
+  &quot;metadata_location&quot;: &quot;file:/.../nyc.db/taxis/metadata/00000-aa3a3eac-ea08-4255-b890-383a64a94e42.metadata.json&quot;,
+  &quot;metadata&quot;: {
+    &quot;location&quot;: &quot;file:/.../nyc.db/taxis&quot;,
+    &quot;table-uuid&quot;: &quot;6cdfda33-bfa3-48a7-a09e-7abb462e3460&quot;,
+    &quot;last-updated-ms&quot;: 1661783158061,
+    &quot;last-column-id&quot;: 19,
+    &quot;schemas&quot;: [
+      {
+        &quot;type&quot;: &quot;struct&quot;,
+        &quot;fields&quot;: [
+          {
+            &quot;id&quot;: 1,
+            &quot;name&quot;: &quot;VendorID&quot;,
+            &quot;type&quot;: &quot;long&quot;,
+            &quot;required&quot;: false
+          },
+...
+          {
+            &quot;id&quot;: 19,
+            &quot;name&quot;: &quot;airport_fee&quot;,
+            &quot;type&quot;: &quot;double&quot;,
+            &quot;required&quot;: false
+          }
+        ],
+        &quot;schema-id&quot;: 0,
+        &quot;identifier-field-ids&quot;: []
+      }
+    ],
+    &quot;current-schema-id&quot;: 0,
+    &quot;partition-specs&quot;: [
+      {
+        &quot;spec-id&quot;: 0,
+        &quot;fields&quot;: []
+      }
+    ],
+    &quot;default-spec-id&quot;: 0,
+    &quot;last-partition-id&quot;: 999,
+    &quot;properties&quot;: {
+      &quot;owner&quot;: &quot;root&quot;,
+      &quot;write.format.default&quot;: &quot;parquet&quot;
+    },
+    &quot;current-snapshot-id&quot;: 5937117119577207000,
+    &quot;snapshots&quot;: [
+      {
+        &quot;snapshot-id&quot;: 5937117119577207000,
+        &quot;timestamp-ms&quot;: 1661783158061,
+        &quot;manifest-list&quot;: &quot;file:/.../nyc.db/taxis/metadata/snap-5937117119577207079-1-94656c4f-4c66-4600-a4ca-f30377300527.avro&quot;,
+        &quot;summary&quot;: {
+          &quot;operation&quot;: &quot;append&quot;,
+          &quot;spark.app.id&quot;: &quot;local-1661783139151&quot;,
+          &quot;added-data-files&quot;: &quot;1&quot;,
+          &quot;added-records&quot;: &quot;2979431&quot;,
+          &quot;added-files-size&quot;: &quot;46600777&quot;,
+          &quot;changed-partition-count&quot;: &quot;1&quot;,
+          &quot;total-records&quot;: &quot;2979431&quot;,
+          &quot;total-files-size&quot;: &quot;46600777&quot;,
+          &quot;total-data-files&quot;: &quot;1&quot;,
+          &quot;total-delete-files&quot;: &quot;0&quot;,
+          &quot;total-position-deletes&quot;: &quot;0&quot;,
+          &quot;total-equality-deletes&quot;: &quot;0&quot;
+        },
+        &quot;schema-id&quot;: 0
+      }
+    ],
+    &quot;snapshot-log&quot;: [
+      {
+        &quot;snapshot-id&quot;: &quot;5937117119577207079&quot;,
+        &quot;timestamp-ms&quot;: 1661783158061
+      }
+    ],
+    &quot;metadata-log&quot;: [],
+    &quot;sort-orders&quot;: [
+      {
+        &quot;order-id&quot;: 0,
+        &quot;fields&quot;: []
+      }
+    ],
+    &quot;default-sort-order-id&quot;: 0,
+    &quot;refs&quot;: {
+      &quot;main&quot;: {
+        &quot;snapshot-id&quot;: 5937117119577207000,
+        &quot;type&quot;: &quot;branch&quot;
+      }
+    },
+    &quot;format-version&quot;: 1,
+    &quot;schema&quot;: {
+      &quot;type&quot;: &quot;struct&quot;,
+      &quot;fields&quot;: [
+        {
+          &quot;id&quot;: 1,
+          &quot;name&quot;: &quot;VendorID&quot;,
+          &quot;type&quot;: &quot;long&quot;,
+          &quot;required&quot;: false
+        },
+...
+        {
+          &quot;id&quot;: 19,
+          &quot;name&quot;: &quot;airport_fee&quot;,
+          &quot;type&quot;: &quot;double&quot;,
+          &quot;required&quot;: false
+        }
+      ],
+      &quot;schema-id&quot;: 0,
+      &quot;identifier-field-ids&quot;: []
+    },
+    &quot;partition-spec&quot;: []
+  }
+}
+</code></pre>
+<h1 id="python-api">Python API</h1>
+<p>To instantiate a catalog:</p>
+<pre><code class="language-python">from pyiceberg.catalog import load_catalog
+
+catalog = load_catalog(&quot;prod&quot;)
+
+catalog.list_namespaces()
+</code></pre>
+<p>Returns:</p>
+<pre><code>[('default',), ('nyc',)]
+</code></pre>
+<p>Listing the tables in the <code>nyc</code> namespace:</p>
+<pre><code class="language-python">catalog.list_tables(&quot;nyc&quot;)
+</code></pre>
+<p>Returns:</p>
+<pre><code>[('nyc', 'taxis')]
+</code></pre>
+<p>Loading the <code>taxis</code> table:</p>
+<pre><code class="language-python">catalog.load_table((&quot;nyc&quot;, &quot;taxis&quot;))
+</code></pre>
+<pre><code>Table(
+  identifier=('nyc', 'taxis'),
+  metadata_location='s3a://warehouse/wh/nyc.db/taxis/metadata/00002-6ea51ce3-62aa-4197-9cf8-43d07c3440ca.metadata.json',
+  metadata=TableMetadataV2(
+    location='s3a://warehouse/wh/nyc.db/taxis',
+    table_uuid=UUID('ebd5d172-2162-453d-b586-1cdce52c1116'),
+    last_updated_ms=1662633437826,
+    last_column_id=19,
+    schemas=[Schema(
+        NestedField(field_id=1, name='VendorID', field_type=LongType(), required=False),
+        NestedField(field_id=2, name='tpep_pickup_datetime', field_type=TimestamptzType(), required=False),
+        NestedField(field_id=3, name='tpep_dropoff_datetime', field_type=TimestamptzType(), required=False),
+        NestedField(field_id=4, name='passenger_count', field_type=DoubleType(), required=False),
+        NestedField(field_id=5, name='trip_distance', field_type=DoubleType(), required=False),
+        NestedField(field_id=6, name='RatecodeID', field_type=DoubleType(), required=False),
+        NestedField(field_id=7, name='store_and_fwd_flag', field_type=StringType(), required=False),
+        NestedField(field_id=8, name='PULocationID', field_type=LongType(), required=False),
+        NestedField(field_id=9, name='DOLocationID', field_type=LongType(), required=False),
+        NestedField(field_id=10, name='payment_type', field_type=LongType(), required=False),
+        NestedField(field_id=11, name='fare_amount', field_type=DoubleType(), required=False),
+        NestedField(field_id=12, name='extra', field_type=DoubleType(), required=False),
+        NestedField(field_id=13, name='mta_tax', field_type=DoubleType(), required=False),
+        NestedField(field_id=14, name='tip_amount', field_type=DoubleType(), required=False),
+        NestedField(field_id=15, name='tolls_amount', field_type=DoubleType(), required=False),
+        NestedField(field_id=16, name='improvement_surcharge', field_type=DoubleType(), required=False),
+        NestedField(field_id=17, name='total_amount', field_type=DoubleType(), required=False),
+        NestedField(field_id=18, name='congestion_surcharge', field_type=DoubleType(), required=False),
+        NestedField(field_id=19, name='airport_fee', field_type=DoubleType(), required=False)
+      ),
+      schema_id=0,
+      identifier_field_ids=[]
+    )],
+    current_schema_id=0,
+    partition_specs=[PartitionSpec(spec_id=0)],
+    default_spec_id=0,
+    last_partition_id=999,
+    properties={
+      'owner': 'root',
+      'write.format.default': 'parquet'
+    },
+    current_snapshot_id=8334458494559715805,
+    snapshots=[
+      Snapshot(
+        snapshot_id=7910949481055846233,
+        parent_snapshot_id=None,
+        sequence_number=None,
+        timestamp_ms=1662489306555,
+        manifest_list='s3a://warehouse/wh/nyc.db/taxis/metadata/snap-7910949481055846233-1-3eb7a2e1-5b7a-4e76-a29a-3e29c176eea4.avro',
+        summary=Summary(
+          Operation.APPEND,
+          **{
+            'spark.app.id': 'local-1662489289173',
+            'added-data-files': '1',
+            'added-records': '2979431',
+            'added-files-size': '46600777',
+            'changed-partition-count': '1',
+            'total-records': '2979431',
+            'total-files-size': '46600777',
+            'total-data-files': '1',
+            'total-delete-files': '0',
+            'total-position-deletes': '0',
+            'total-equality-deletes': '0'
+          }
+        ),
+        schema_id=0
+      ),
+    ],
+    snapshot_log=[
+      SnapshotLogEntry(
+        snapshot_id='7910949481055846233',
+        timestamp_ms=1662489306555
+      )
+    ],
+    metadata_log=[
+      MetadataLogEntry(
+        metadata_file='s3a://warehouse/wh/nyc.db/taxis/metadata/00000-b58341ba-6a63-4eea-9b2f-e85e47c7d09f.metadata.json',
+        timestamp_ms=1662489306555
+      )
+    ],
+    sort_orders=[SortOrder(order_id=0)],
+    default_sort_order_id=0,
+    refs={
+      'main': SnapshotRef(
+        snapshot_id=8334458494559715805,
+        snapshot_ref_type=SnapshotRefType.BRANCH,
+        min_snapshots_to_keep=None,
+        max_snapshot_age_ms=None,
+        max_ref_age_ms=None
+      )
+    },
+    format_version=2,
+    last_sequence_number=1
+  )
+)
+</code></pre>
+<p>And to create a table from a catalog:</p>
+<pre><code class="language-python">from pyiceberg.schema import Schema
+from pyiceberg.types import TimestampType, DoubleType, StringType, NestedField
+
+schema = Schema(
+    NestedField(
+        field_id=1, name=&quot;datetime&quot;, field_type=TimestampType(), required=False
+    ),
+    NestedField(field_id=2, name=&quot;bid&quot;, field_type=DoubleType(), required=False),
+    NestedField(field_id=3, name=&quot;ask&quot;, field_type=DoubleType(), required=False),
+    NestedField(field_id=4, name=&quot;symbol&quot;, field_type=StringType(), required=False),
+)
+
+from pyiceberg.table.partitioning import PartitionSpec, PartitionField
+from pyiceberg.transforms import DayTransform
+
+partition_spec = PartitionSpec(
+    PartitionField(
+        source_id=1, field_id=1000, transform=DayTransform(), name=&quot;datetime_day&quot;
+    )
+)
+
+from pyiceberg.table.sorting import SortOrder, SortField
+from pyiceberg.transforms import IdentityTransform
+
+sort_order = SortOrder(SortField(source_id=4, transform=IdentityTransform()))
+
+from pyiceberg.catalog.hive import HiveCatalog
+
+catalog = HiveCatalog(name=&quot;prod&quot;, uri=&quot;thrift://localhost:9083/&quot;)
+
+catalog.create_table(
+    identifier=&quot;default.bids&quot;,
+    location=&quot;/Users/fokkodriesprong/Desktop/docker-spark-iceberg/wh/bids/&quot;,
+    schema=schema,
+    partition_spec=partition_spec,
+    sort_order=sort_order,
+)
+</code></pre>
+<p>Which returns a newly created table:</p>
+<pre><code>Table(
+    identifier=('default', 'bids'),
+    metadata_location='/Users/fokkodriesprong/Desktop/docker-spark-iceberg/wh/bids//metadata/00000-c8cd93ab-f784-474d-a167-b1a86b05195f.metadata.json',
+    metadata=TableMetadataV2(
+        location='/Users/fokkodriesprong/Desktop/docker-spark-iceberg/wh/bids/',
+        table_uuid=UUID('38d4cb39-4945-4bf2-b374-984b5c4984d2'),
+        last_updated_ms=1661847562069,
+        last_column_id=4,
+        schemas=[
+            Schema(
+                NestedField(field_id=1, name='datetime', field_type=TimestampType(), required=False),
+                NestedField(field_id=2, name='bid', field_type=DoubleType(), required=False),
+                NestedField(field_id=3, name='ask', field_type=DoubleType(), required=False),
+                NestedField(field_id=4, name='symbol', field_type=StringType(), required=False)),
+                schema_id=1,
+                identifier_field_ids=[])
+        ],
+        current_schema_id=1,
+        partition_specs=[
+            PartitionSpec(
+                PartitionField(source_id=1, field_id=1000, transform=DayTransform(), name='datetime_day'),))
+        ],
+        default_spec_id=0,
+        last_partition_id=1000,
+        properties={},
+        current_snapshot_id=None,
+        snapshots=[],
+        snapshot_log=[],
+        metadata_log=[],
+        sort_orders=[
+            SortOrder(order_id=1, fields=[SortField(source_id=4, transform=IdentityTransform(), direction=SortDirection.ASC, null_order=NullOrder.NULLS_FIRST)])
+        ],
+        default_sort_order_id=1,
+        refs={},
+        format_version=2,
+        last_sequence_number=0
+    )
+)
+</code></pre>
+<h1 id="feature-support">Feature Support</h1>
+<p>The goal is that the python library will provide a functional, performant subset of the Java library. The initial focus has been on reading table metadata and provide a convenient CLI to go through the catalog.</p>
+<h2 id="metadata">Metadata</h2>
+<table>
+<thead>
+<tr>
+<th align="left">Operation</th>
+<th align="center">Java</th>
+<th align="center">Python</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Get Schema</td>
+<td align="center">X</td>
+<td align="center">X</td>
+</tr>
+<tr>
+<td align="left">Get Snapshots</td>
+<td align="center">X</td>
+<td align="center">X</td>
+</tr>
+<tr>
+<td align="left">Plan Scan</td>
+<td align="center">X</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="left">Plan Scan for Snapshot</td>
+<td align="center">X</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="left">Update Current Snapshot</td>
+<td align="center">X</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="left">Set Table Properties</td>
+<td align="center">X</td>
+<td align="center">X</td>
+</tr>
+<tr>
+<td align="left">Create Table</td>
+<td align="center">X</td>
+<td align="center">X</td>
+</tr>
+<tr>
+<td align="left">Drop Table</td>
+<td align="center">X</td>
+<td align="center">X</td>
+</tr>
+<tr>
+<td align="left">Alter Table</td>
+<td align="center">X</td>
+<td align="center"></td>
+</tr>
+</tbody>
+</table>
+<h2 id="types">Types</h2>
+<p>The types are kept in <code>pyiceberg.types</code>.</p>
+<p>Primitive types:</p>
+<ul>
+<li><code>BooleanType</code></li>
+<li><code>StringType</code></li>
+<li><code>IntegerType</code></li>
+<li><code>LongType</code></li>
+<li><code>FloatType</code></li>
+<li><code>DoubleType</code></li>
+<li><code>DateType</code></li>
+<li><code>TimeType</code></li>
+<li><code>TimestampType</code></li>
+<li><code>TimestamptzType</code></li>
+<li><code>BinaryType</code></li>
+<li><code>UUIDType</code></li>
+</ul>
+<p>Complex types:</p>
+<ul>
+<li><code>StructType</code></li>
+<li><code>ListType</code></li>
+<li><code>MapType</code></li>
+<li><code>FixedType(16)</code></li>
+<li><code>DecimalType(8, 3)</code></li>
+</ul></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = ".",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="js/base.js" defer></script>
+        <script src="search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
+
+<!--
+MkDocs version : 1.4.2
+Build Date UTC : 2022-11-14 06:40:49.764237+00:00
+-->
